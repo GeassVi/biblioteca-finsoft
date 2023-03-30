@@ -1,12 +1,18 @@
 package com.bibliotecafinsoft.libri.controller;
 
 import com.bibliotecafinsoft.libri.DTO.LibriDTO;
+import com.bibliotecafinsoft.libri.service.LibriService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/libri")
 @CrossOrigin(origins = "*")
 public class LibriController {
+
+    @Autowired
+    public LibroService libroService;
+
     @GetMapping("/getAll")
     public String getAll() {
 
