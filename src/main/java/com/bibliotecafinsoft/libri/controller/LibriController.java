@@ -3,7 +3,10 @@ package com.bibliotecafinsoft.libri.controller;
 import com.bibliotecafinsoft.libri.DTO.LibriDTO;
 import com.bibliotecafinsoft.libri.service.LibriService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/libri")
@@ -11,34 +14,34 @@ import org.springframework.web.bind.annotation.*;
 public class LibriController {
 
     @Autowired
-    public LibroService libroService;
+    public LibriService libriService;
 
-    @GetMapping("/getAll")
-    public String getAll() {
-
-        LibriDTO libroDTO = new LibriDTO();
-        libroDTO.getIsbn();
-        return "questo è il getAll";
+    @GetMapping("/getAllLibri")
+    public List<LibriDTO> getAllLibri() {
+        return libriService.getAllLibri();
     }
 
-    @GetMapping("/getIsbn")
-    public String getIsbn() {
-        return "questo è il getIsbn";
+    @GetMapping("/getIsbn/{isbn}")
+    public LibriDTO getIsbn(@PathVariable String isbn) {
+        return libriService.getIsbn(isbn);
     }
 
     @PostMapping("/create")
-    public String create() {
-        return "questo è il create";
+    @ResponseStatus(HttpStatus.CREATED)
+    public LibriDTO create(@RequestBody LibriDTO libroDTO) {
+        return libriService.create(libroDTO);
     }
 
-    @PutMapping("/update")
-    public String update() {
-        return "questo è l'update";
+    @PutMapping("/update/{id_libro}")
+    public ResponseEntity<LibriDTO> update(@RequestBody LibriDTO libroDTO) {
+        LibriDTO updatedLibro = libriService.update(libroDTO);
+        return ResponseEntity.ok(updatedLibro);
     }
 
-    @DeleteMapping("/deleteId")
-    public String deleteId() {
-        return "questo è il delete";
+    @DeleteMapping("/libri/{id_libro}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id_libro) {
+        libriService.deleteById(id_libro);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.bibliotecafinsoft.libri.entity;
 
 import com.bibliotecafinsoft.prestiti.entity.Prestiti;
 import lombok.Data;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
@@ -20,8 +15,6 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Data
@@ -35,7 +28,7 @@ public class Libri implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_libro")
-    private Integer idLibro;
+    private Integer id_libro;
     @Basic(optional = false)
     @Column(name = "isbn")
     private String isbn;
@@ -50,8 +43,7 @@ public class Libri implements Serializable {
     private String anno;
     @Basic(optional = false)
     @Column(name = "genere")
-    @Temporal(TemporalType.DATE)
-    private Date genere;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idLibro")
+    private String genere;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id_libro")
     private List<Prestiti> prestitiList;
 }

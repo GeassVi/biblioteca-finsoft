@@ -1,38 +1,47 @@
 package com.bibliotecafinsoft.clienti.controller;
 
 import com.bibliotecafinsoft.clienti.DTO.ClientiDTO;
+import com.bibliotecafinsoft.clienti.service.ClientiService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clienti")
 @CrossOrigin(origins = "*")
 public class ClientiController {
-    @GetMapping("/getAll")
-    public String getAll() {
 
-        ClientiDTO clienteDTO = new ClientiDTO();
-        clienteDTO.getId_cliente();
-        return "questo è il getAll";
+    @Autowired
+    public ClientiService clientiService;
+
+    @GetMapping("/getAllClienti")
+    public List<ClientiDTO> getAllClienti() {
+        return clientiService.getAllClienti();
     }
 
-    @GetMapping("/getId_cliente")
-    public String getIsbn() {
-        return "questo è il getId_cliente";
+    @GetMapping("/getCognome/{cognome}")
+    public ClientiDTO getCognome(@PathVariable String cognome) {
+        return clientiService.getCognome(cognome);
     }
 
     @PostMapping("/create")
-    public String create() {
-        return "questo è il create";
+    @ResponseStatus(HttpStatus.CREATED)
+    public ClientiDTO create(@RequestBody ClientiDTO clienteDTO) {
+        return clientiService.create(clienteDTO);
     }
 
-    @PutMapping("/update")
-    public String update() {
-        return "questo è l'update";
+    @PutMapping("/update/{id_cliente}")
+    public ResponseEntity<ClientiDTO> update(@RequestBody ClientiDTO clienteDTO) {
+        ClientiDTO updatedcliente = clientiService.update(clienteDTO);
+        return ResponseEntity.ok(updatedcliente);
     }
 
-    @DeleteMapping("/deleteId")
-    public String deleteId() {
-        return "questo è il delete";
+    @DeleteMapping("/libri/{id_cliente}")
+    public ResponseEntity<Void> deleteById(@PathVariable int id_cliente) {
+        clientiService.deleteById(id_cliente);
+        return ResponseEntity.noContent().build();
     }
 
 }

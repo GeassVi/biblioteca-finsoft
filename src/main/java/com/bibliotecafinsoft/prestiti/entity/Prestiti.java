@@ -33,21 +33,20 @@ public class Prestiti implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_prestito")
-    private Integer idPrestito;
+    private Integer id_prestito;
     @Basic(optional = false)
     @Column(name = "data_inizio")
-    private int dataInizio;
+    private String data_inizio;
     @Basic(optional = false)
     @Column(name = "data_fine")
-    private int dataFine;
+    private String data_fine;
     @Basic(optional = false)
     @Column(name = "data_consegna")
-    private int dataConsegna;
+    private String data_consegna;
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
-    private Clienti idCliente;
+    private Clienti id_cliente;
     @JoinColumn(name = "id_libro", referencedColumnName = "id_libro")
     @ManyToOne(optional = false)
-    private Libri idLibro;
-
+    private Libri id_libro;
 }

@@ -8,7 +8,9 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface LibriMapper {
 
-    LibriMapper INSTANCE= Mappers.getMapper(LibriMapper.class);
+    LibriMapper INSTANCE = Mappers.getMapper(LibriMapper.class);
+
     LibriDTO toDTO(Libri libri);
+
     Libri toEntity(LibriDTO dto);
 }
